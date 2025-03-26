@@ -23,8 +23,8 @@ class QuizApp {
   }
 
   initEventListeners() {
-    this.prevBtn.addEventListener('click', () => this.navigateQuestion(-1));
-    this.nextBtn.addEventListener('click', () => this.navigateQuestion(1));
+    this.prevBtn.addEventListener('click', () => this.navigatePreviousQuestion());
+    this.nextBtn.addEventListener('click', () => this.navigateNextQuestion());
     this.restartBtn.addEventListener('click', () => this.restartQuiz());
   }
 
@@ -80,7 +80,8 @@ class QuizApp {
         );
 
         answerBtn.addEventListener('click', () => {
-          this.selectAnswer(index);
+          this.setCurrentAnswer(index);
+          this.updateQuestion()
         });
 
         this.answersContainerEl.appendChild(answerBtn);
@@ -96,7 +97,7 @@ class QuizApp {
       textInput.value = this.userAnswers[this.currentQuestionIndex] || '';
 
       textInput.addEventListener('input', (e) => {
-        this.selectAnswer(e.target.value);
+        this.setCurrentAnswer(e.target.value)
       });
 
       this.answersContainerEl.appendChild(textInput);
@@ -111,7 +112,7 @@ class QuizApp {
       numberInput.value = this.userAnswers[this.currentQuestionIndex] || '';
 
       numberInput.addEventListener('input', (e) => {
-        this.selectAnswer(Number(e.target.value));
+        this.setCurrentAnswer(Number(e.target.value));
       });
 
       this.answersContainerEl.appendChild(numberInput);
@@ -124,19 +125,27 @@ class QuizApp {
     this.updateProgress();
   }
 
-  selectAnswer(answer) {
+  setCurrentAnswer(answer) {
     this.userAnswers[this.currentQuestionIndex] = answer;
-    this.updateQuestion(); // Refresh to show selected state
   }
 
-  navigateQuestion(direction) {
-    const newIndex = this.currentQuestionIndex + direction;
+  navigateNextQuestion() {
+    const newIndex = this.currentQuestionIndex + 1;
 
-    if (newIndex >= 0 && newIndex < this.questions.length) {
+    if (newIndex < this.questions.length) {
       this.currentQuestionIndex = newIndex;
       this.updateQuestion();
-    } else if (newIndex >= this.questions.length) {
+    } else {
       this.showResults();
+    }
+  }
+
+  navigatePreviousQuestion() {
+    const newIndex = this.currentQuestionIndex - 1;
+
+    if (newIndex >= 0) {
+      this.currentQuestionIndex = newIndex;
+      this.updateQuestion();
     }
   }
 
