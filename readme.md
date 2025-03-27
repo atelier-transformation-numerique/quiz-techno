@@ -9,11 +9,17 @@ Il est possible de diviser le développement de la platerforme et du contentu in
 ### Développement de la plateforme
 
 - Landing page qui explique le fonctionnement de la plateforme
-- Authentification via fournisseur d'idendité (Site atn, compte microsoft d'entreprise ou login social (google, facebook, etc))
+- Authentification via email + code temporaire. Disponible après avoir complété quiz initial optionnelement pour sauvegarder ses résutats.
 - Servir les questions sous forme d'un quiz web. Enregistrer les résultats dans une bd. (D1 recommandé si utilise le stack cloudflare)
-- Page de résultats avec recommandations de formations/compétances à améliorer. /!\ Peu être compliqué selon méthodologie /!\
+- Page de résultats: Afficher score pour chaque dimension et montrer liens vers ressources d'apprentissage pertinantes.
 - Page admin pour éditer le quiz. Soit utiliser type question existant ou upload une page web embedded. Exposer api via postMessage pour poster résultat et unlock le bouton next.
 - Page admin pour récupérer les réusltats à des fins de stat.
+- Environnement de dev pour tester les questions. (Un must)
+
+#### Nice to have
+
+- Compte à rebourd inclus dans la page de quiz.
+- Encouragment mi-quiz.
 
 ### Développement du contenu
 
